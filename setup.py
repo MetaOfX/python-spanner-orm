@@ -23,7 +23,7 @@ setup(
     url='https://github.com/google/python-spanner-orm',
     packages=['spanner_orm', 'spanner_orm.admin'],
     include_package_data=True,
-    python_requires='~=3.8',
+    python_requires='3',
     install_requires=[
         'google-cloud-spanner >= 1.6, <2.0.0dev',
         'immutabledict',
