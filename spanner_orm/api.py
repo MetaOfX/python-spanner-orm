@@ -16,6 +16,7 @@
 
 import abc
 from typing import Any, Callable, Dict, Iterable, Optional, TypeVar, Union
+import warnings
 
 from google.api_core import client_options as api_client_options
 from google.api_core import exceptions
@@ -39,7 +40,7 @@ class SpannerRetryableApi(abc.ABC):
       if not 'Session not found' in e.message:
         raise
 
-      spanner_api().connect()
+      spanner_api().spanner_connection.connect()
       return api_method(*args, **kwargs)
 
 
@@ -147,6 +148,11 @@ class SpannerApi(SpannerReadApi, SpannerWriteApi):
     self._spanner_connection = connection
 
   @property
+  def spanner_connection(self) -> SpannerConnection:
+    """Connection to the database."""
+    return self._spanner_connection
+
+  @property
   def _connection(self):
     return self._spanner_connection.database
 
@@ -160,7 +166,14 @@ def connect(
     project: Optional[str] = None,
     credentials: Optional[auth_credentials.Credentials] = None,
     pool: Optional[spanner_pool.AbstractSessionPool] = None) -> SpannerApi:
-  """Connects to the Spanner database and sets the global spanner_api."""
+  """Connects to the Spanner database and sets the global spanner_api.
+
+  Deprecated in favor of from_connection().
+  """
+  warnings.warn(
+      DeprecationWarning(
+          'Please use '
+          'spanner_orm.from_connection(spanner_orm.SpannerConnection(...))'))
   connection = SpannerConnection(
       instance, database, project=project, credentials=credentials, pool=pool)
   return from_connection(connection)

@@ -15,7 +15,8 @@ then run:
 To connect the Spanner ORM to an existing Spanner database:
 ``` python
 import spanner_orm
-spanner_orm.connect(instance_name, database_name)
+spanner_orm.from_connection(
+    spanner_orm.SpannerConnection(instance_name, database_name))
 ```
 
 `project` and `credentials` are optional parameters, and the standard Spanner
@@ -204,8 +205,7 @@ To check type annotations, run:
 
 ```
 pip install pytype
-# https://github.com/google/pytype/issues/80#issuecomment-385128856
-pytype -V 3.7 spanner_orm -d import-error
+pytype spanner_orm
 ```
 
 To check formatting, run (change `--diff` to `--in-place` to fix formatting):
@@ -218,5 +218,5 @@ yapf --diff --recursive --parallel .
 Then run tests with:
 
 ```
-SPANNER_EMULATOR_BINARY_PATH=$(pwd)/emulator_main python3 setup.py test
+SPANNER_EMULATOR_BINARY_PATH=$(pwd)/emulator_main pytest
 ```
