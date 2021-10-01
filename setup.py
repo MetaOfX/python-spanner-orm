@@ -17,7 +17,7 @@ from setuptools import setup
 
 setup(
     name='spanner-orm',
-    version='0.1.10',
+    version='0.1.11',
     description='Basic ORM for Spanner',
     maintainer='Python Spanner ORM developers',
     maintainer_email='python-spanner-orm@google.com',
