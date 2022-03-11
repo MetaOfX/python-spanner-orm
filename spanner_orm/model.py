@@ -31,7 +31,8 @@ from spanner_orm import relationship
 from spanner_orm import table_apis
 
 from google.api_core import exceptions
-from google.cloud import spanner
+# TODO(https://github.com/google/pytype/issues/1081): Remove pytype disable.
+from google.cloud import spanner  # pytype: disable=import-error
 from google.cloud.spanner_v1 import transaction as spanner_transaction
 
 T = TypeVar('T')
@@ -194,6 +195,9 @@ class Model(metaclass=ModelMetaclass):
     if type(self) != type(other):
       return NotImplemented
     return self.values == other.values
+
+  def __repr__(self) -> str:
+    return f'{self.__class__.__qualname__}({self.values!r})'
 
   @classmethod
   def spanner_api(cls) -> api.SpannerApi:

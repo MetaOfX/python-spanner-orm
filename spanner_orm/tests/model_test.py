@@ -22,7 +22,8 @@ from unittest import mock
 
 from absl.testing import parameterized
 from google.api_core import exceptions
-from google.cloud import spanner
+# TODO(https://github.com/google/pytype/issues/1081): Remove pytype disable.
+from google.cloud import spanner  # pytype: disable=import-error
 from spanner_orm import error
 from spanner_orm import field
 from spanner_orm.testlib.spanner_emulator import testlib as spanner_emulator_testlib
@@ -331,6 +332,11 @@ class ModelTest(
   )
   def test_model_are_different(self, test_model1, test_model2):
     self.assertNotEqual(test_model1, test_model2)
+
+  def test_repr(self):
+    self.assertEqual(
+        "SmallTestModel({'key': 'a', 'value_1': 'b', 'value_2': None})",
+        repr(models.SmallTestModel(dict(key='a', value_1='b', value_2=None))))
 
   def test_id(self):
     primary_key = {'string': 'foo', 'int_': 5, 'float_': 2.3, 'bytes_': b'A1A1'}
