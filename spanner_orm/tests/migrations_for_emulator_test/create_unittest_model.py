@@ -39,6 +39,8 @@ class OriginalUnittestModelTable(spanner_orm.model.Model):
   bytes_2 = field.Field(field.BytesBase64, nullable=True)
   timestamp = field.Field(field.Timestamp)
   string_array = field.Field(field.StringArray, nullable=True)
+  int_array = field.Field(field.IntegerArray, nullable=True)
+  float_array = field.Field(field.FloatArray, nullable=True)
 
 
 def upgrade() -> spanner_orm.CreateTable:

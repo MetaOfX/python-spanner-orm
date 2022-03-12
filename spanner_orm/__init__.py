@@ -60,8 +60,10 @@ Model = model.Model
 
 Boolean = field.Boolean
 Field = field.Field
-Integer = field.Integer
 Float = field.Float
+FloatArray = field.FloatArray
+Integer = field.Integer
+IntegerArray = field.IntegerArray
 ForeignKeyRelationship = foreign_key_relationship.ForeignKeyRelationship
 Index = index.Index
 Relationship = relationship.Relationship

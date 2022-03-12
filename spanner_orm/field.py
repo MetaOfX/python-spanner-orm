@@ -167,6 +167,43 @@ class StringArray(FieldType):
       if not isinstance(item, str):
         raise error.ValidationError('{} is not of type str'.format(item))
 
+class FloatArray(FieldType):
+  """Represents an array of strings type."""
+
+  @staticmethod
+  def ddl() -> str:
+    return 'ARRAY<FLOAT64>'
+
+  @staticmethod
+  def grpc_type() -> type_pb2.Type:
+    return type_pb2.Type(code=type_pb2.ARRAY)
+
+  @staticmethod
+  def validate_type(value: Any) -> None:
+    if not isinstance(value, list):
+      raise error.ValidationError('{} is not of type list'.format(value))
+    for item in value:
+      if not isinstance(item, float):
+        raise error.ValidationError('{} is not of type float'.format(item))
+
+class IntegerArray(FieldType):
+  """Represents an array of strings type."""
+
+  @staticmethod
+  def ddl() -> str:
+    return 'ARRAY<INT64>'
+
+  @staticmethod
+  def grpc_type() -> type_pb2.Type:
+    return type_pb2.Type(code=type_pb2.ARRAY)
+
+  @staticmethod
+  def validate_type(value: Any) -> None:
+    if not isinstance(value, list):
+      raise error.ValidationError('{} is not of type list'.format(value))
+    for item in value:
+      if not isinstance(item, int):
+        raise error.ValidationError('{} is not of type int'.format(item))
 
 class Timestamp(FieldType):
   """Represents a timestamp type."""
@@ -209,5 +246,5 @@ class BytesBase64(FieldType):
 
 
 ALL_TYPES = [
-    Boolean, Integer, Float, String, StringArray, Timestamp, BytesBase64
+    Boolean, Integer, IntegerArray, Float, FloatArray, String, StringArray, Timestamp, BytesBase64
 ]

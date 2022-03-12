@@ -140,3 +140,13 @@ class NullFilteredIndexModel(model.Model):
   value_1 = field.Field(field.String, nullable=True)
   value_2 = field.Field(field.Integer)
   value_index = index.Index(['value_1', 'value_2'], null_filtered=True)
+
+
+class NumericFloatArrayModel(model.Model):
+  """Model class for testing Integer and Float Arrays."""
+
+  __table__ = 'NumericFloatArrayModel'
+  key = field.Field(field.String, primary_key=True)
+  value_1 = field.Field(field.FloatArray)
+  value_2 = field.Field(field.IntegerArray)
+
